@@ -46,7 +46,10 @@ describe('redux-async', () => {
     const store = getNewStore();
     const thingsToHappen = [ { type: 'SOMETHING_PENDING',  payload: { rest: 'ing'} }];
     store.subscribe(() => {
-      if (!thingsToHappen.length) {
+      if (thingsToHappen.length) {
+        const expecedCurrentState = thingsToHappen.shift();
+        expect(store.getState()).toEqual(expecedCurrentState);
+      } else {
         const state = store.getState();
         expect(state.type).toEqual('SOMETHING_REJECTED');
         expect(state.error).toBeTruthy();
@@ -54,9 +57,6 @@ describe('redux-async', () => {
         expect(state.payload).toBeAn(Error);
         expect(state.payload.message).toEqual('something went wrong');
         done();
-      } else {
-        const expecedCurrentState = thingsToHappen.shift();
-        expect(store.getState()).toEqual(expecedCurrentState);
       }
     });
     store.dispatch({
