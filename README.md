@@ -88,8 +88,8 @@ export default createReducer(initialState, {
 
 [npm-image]: https://img.shields.io/npm/v/redux-async.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/redux-async
-[travis-image]: https://img.shields.io/travis/kolodny/redux-async.svg?style=flat-square
-[travis-url]: https://travis-ci.org/kolodny/redux-async
+[travis-image]: https://img.shields.io/travis/symbiont-io/redux-async.svg?style=flat-square
+[travis-url]: https://travis-ci.org/symbiont-io/redux-async
 [coveralls-image]: https://img.shields.io/coveralls/kolodny/redux-async.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/kolodny/redux-async
 [downloads-image]: http://img.shields.io/npm/dm/redux-async.svg?style=flat-square
