@@ -6,7 +6,7 @@ redux-async
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Downloads][downloads-image]][downloads-url]
 
-[RSA](https://github.com/kolodny/redux-standard-action)-compliant actions which resovle when any prop is a promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+[RSA](https://github.com/kolodny/redux-standard-action)-compliant actions which resolve when any prop is a promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
 
 ## Install
