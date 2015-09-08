@@ -1,12 +1,14 @@
 redux-async
 =============
 
-[![build status](https://img.shields.io/travis/kolodny/redux-async/master.svg?style=flat-square)](https://travis-ci.org/kolodny/redux-async)
-[![npm version](https://img.shields.io/npm/v/redux-async.svg?style=flat-square)](https://www.npmjs.com/package/redux-async)
+[![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Downloads][downloads-image]][downloads-url]
 
 [FSA](https://github.com/kolodny/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
-Make sure that the value that you resolve to returns an object since it will get spread to the payload:
+Make sure that the value that you resolve to returns an object since it will get spread to the `payload` for successful resolutions and `meta` for rejected ones:
 
 ```js
 const isValidPromise = new Promise(res => setTimeout( res(Math.random() > .5)));
@@ -80,3 +82,13 @@ export default createReducer(initialState, {
   { errorMessage && <div className="error">errorMessage</div> }
 </div>
 ```
+
+
+[npm-image]: https://img.shields.io/npm/v/redux-async.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/redux-async
+[travis-image]: https://img.shields.io/travis/kolodny/redux-async.svg?style=flat-square
+[travis-url]: https://travis-ci.org/kolodny/redux-async
+[coveralls-image]: https://img.shields.io/coveralls/kolodny/redux-async.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/kolodny/redux-async
+[downloads-image]: http://img.shields.io/npm/dm/redux-async.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/redux-async
