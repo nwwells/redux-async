@@ -6,14 +6,7 @@ redux-async
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Downloads][downloads-image]][downloads-url]
 
-[FSA](https://github.com/kolodny/flux-standard-action)-compliant promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
-
-Make sure that the value that you resolve to returns an object since it will get spread to the `payload` for successful resolutions and `meta` for rejected ones:
-
-```js
-const isValidPromise = new Promise(res => setTimeout( res(Math.random() > .5)));
-const promiseForAction = isValidPromise.then(isValid => { return {isValid}; });
-```
+[RSA](https://github.com/kolodny/redux-standard-action)-compliant actions which resovle when any prop is a promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
 
 ## Install
@@ -38,8 +31,10 @@ let createStoreWithMiddleware = applyMiddleware(
 export const loadUsersForAdmin = adminId => {
   return {
     types: [GET_USERS_REQUEST, GET_USERS_SUCCESS, GET_USERS_FAILURE],
-    promise: api.getUsersForAdmin(adminId).then(obj => ({users: obj.users})),
-    adminId
+    payload: {
+      users: api.getUsersForAdmin(adminId).then(response => response.data.users),
+      adminId
+    }
   };
 }
 
@@ -55,7 +50,7 @@ export default createReducer(initialState, {
 
     return {
       isFetching: true,
-      adminId
+      adminId // we always have access to all non promise properties
     };
   },
   [GET_USERS_SUCCESS](state, action) {
@@ -63,13 +58,16 @@ export default createReducer(initialState, {
 
     return {
       isFetching: false,
-      users, // from promise
-      adminId // from ...rest
+      users, // all promise properties resolved
+      adminId // we always have access to all non promise properties - same as above
     };
   },
   [GET_USERS_FAILURE](state, action) {
     // assert(action.error === true && action.payload instanceof Error);
+
+    // when a property gets rejected then the non promise properties go in the meta object
     // assert(action.meta.adminId);
+
     return {errorMessage: action.payload.message}; // from Error.prototype.message
   },
 });

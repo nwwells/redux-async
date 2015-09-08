@@ -37,8 +37,10 @@ describe('redux-async', () => {
     });
     store.dispatch({
       types: ['SOMETHING_PENDING', 'SOMETHING_RESOLVED', 'SOMETHING_REJECTED'],
-      promise: Promise.resolve({isOk: true}),
-      rest: 'ing'
+      payload: {
+        isOk: Promise.resolve(true),
+        rest: 'ing'
+      }
     });
   });
 
@@ -61,8 +63,37 @@ describe('redux-async', () => {
     });
     store.dispatch({
       types: ['SOMETHING_PENDING', 'SOMETHING_RESOLVED', 'SOMETHING_REJECTED'],
-      promise: Promise.reject(new Error('something went wrong')),
-      rest: 'ing',
+      payload: {
+        isOk: Promise.reject(new Error('something went wrong')),
+        rest: 'ing',
+      }
+    });
+  });
+
+  it('handles resolved and rejected promises case in the same payload', (done) => {
+    const store = getNewStore();
+    const thingsToHappen = [ { type: 'SOMETHING_PENDING',  payload: { rest: 'ing'} }];
+    store.subscribe(() => {
+      if (thingsToHappen.length) {
+        const expectedCurrentState = thingsToHappen.shift();
+        expect(store.getState()).toEqual(expectedCurrentState);
+      } else {
+        const state = store.getState();
+        expect(state.type).toEqual('SOMETHING_REJECTED');
+        expect(state.error).toBeTruthy();
+        expect(state.meta).toEqual({rest: 'ing'});
+        expect(state.payload).toBeAn(Error);
+        expect(state.payload.message).toEqual('something went wrong');
+        done();
+      }
+    });
+    store.dispatch({
+      types: ['SOMETHING_PENDING', 'SOMETHING_RESOLVED', 'SOMETHING_REJECTED'],
+      payload: {
+        isOk: Promise.reject(new Error('something went wrong')),
+        isOk2: Promise.resolve(33),
+        rest: 'ing',
+      }
     });
   });
 
