@@ -51,16 +51,20 @@ const initialState = {};
 
 export default createReducer(initialState, {
   [GET_USERS_REQUEST](state, action) {
+    const { adminId } = action.payload;
+
     return {
       isFetching: true,
-      adminId: action.adminId
+      adminId
     };
   },
   [GET_USERS_SUCCESS](state, action) {
+    const { adminId, users } = action.payload;
+
     return {
       isFetching: false,
-      users: actions.payload.users, // from promise
-      adminId: action.payload.adminId // from ...rest
+      users, // from promise
+      adminId // from ...rest
     };
   },
   [GET_USERS_FAILURE](state, action) {
