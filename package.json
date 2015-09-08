@@ -1,0 +1,35 @@
+{
+  "name": "redux-async",
+  "version": "1.0.0",
+  "description": "dispatch async actions in redux",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "prepublish": "npm run test && npm run build",
+    "test-cov": "node ./node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha 'test/**/*.js' -- --reporter dot --require babel/register",
+    "test-travis": "node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha 'test/**/*.js' -- -R spec --require babel/register",
+    "test": "mocha --compilers js:babel/register --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kolodny/redux-async.git"
+  },
+  "keywords": [
+    "redux",
+    "react"
+  ],
+  "author": "Moshe Kolodny",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kolodny/redux-async/issues"
+  },
+  "homepage": "https://github.com/kolodny/redux-async#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.22",
+    "expect": "^1.9.0",
+    "istanbul": "^0.3.19",
+    "mocha": "^2.3.1",
+    "redux": "^2.0.0"
+  }
+}

@@ -1,0 +1,6 @@
+src
+examples
+test
+.babelrc
+.npmignore
+.travis.yml
