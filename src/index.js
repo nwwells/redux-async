@@ -31,10 +31,20 @@ export default function promisePropsMiddleware() {
     const nonPromiseProperties = getNonPromiseProperties(payload);
 
     const [PENDING, RESOLVED, REJECTED] = types;
-    next({ type: PENDING, payload: {...nonPromiseProperties} });
+
+    const pendingAction = { type: PENDING, payload: nonPromiseProperties };
+    const successAction = { type: RESOLVED };
+    const failureAction = { type: REJECTED, error: true, meta: nonPromiseProperties };
+    if (action.meta) {
+      [pendingAction, successAction, failureAction].forEach(nextAction => {
+        nextAction.meta = { ...nextAction.meta, ...action.meta }
+      });
+    }
+
+    next(pendingAction);
     return resolveProps(payload).then(
-      results => next({ type: RESOLVED, payload: {...results} }),
-      error => next({ type: REJECTED, error: true, payload: error, meta: {...nonPromiseProperties} })
+      results => next({ ...successAction, payload: results }),
+      error => next({ ...failureAction, payload: error })
     );
   };
 }

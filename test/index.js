@@ -3,8 +3,9 @@ import { createStore, applyMiddleware } from 'redux';
 
 import middleware from '../src';
 
-const getNewStore = () => {
+const getNewStore = (saveAction) => {
   const reducer = function(state, action) {
+    if (saveAction) saveAction.action = action;
     return action;
   }
   const store = applyMiddleware(middleware)(createStore)(reducer);
@@ -42,6 +43,20 @@ describe('redux-async', () => {
         rest: 'ing'
       }
     });
+  });
+
+  it("doesn't overwrite the meta property", () => {
+    const saveAction = {};
+    const store = getNewStore(saveAction);
+    store.dispatch({
+      types: ['SOMETHING_PENDING', 'SOMETHING_RESOLVED', 'SOMETHING_REJECTED'],
+      meta: { so: 'meta' },
+      payload: {
+        isOk: Promise.resolve(true),
+        rest: 'ing'
+      }
+    });
+    expect(saveAction.action.meta).toEqual({so: 'meta'});
   });
 
   it('handles a rejected promise case', (done) => {
