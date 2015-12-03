@@ -6,7 +6,7 @@ redux-async
 [![Test coverage][coveralls-image]][coveralls-url]
 [![Downloads][downloads-image]][downloads-url]
 
-[RSA](https://github.com/kolodny/redux-standard-action)-compliant actions which resovle when any prop is a promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
+[RSA](https://github.com/kolodny/redux-standard-action)-compliant actions which resolve when any prop is a promise [middleware](https://github.com/gaearon/redux/blob/master/docs/middleware.md) for Redux.
 
 
 ## Install
@@ -88,8 +88,8 @@ export default createReducer(initialState, {
 
 [npm-image]: https://img.shields.io/npm/v/redux-async.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/redux-async
-[travis-image]: https://img.shields.io/travis/kolodny/redux-async.svg?style=flat-square
-[travis-url]: https://travis-ci.org/kolodny/redux-async
+[travis-image]: https://img.shields.io/travis/symbiont-io/redux-async.svg?style=flat-square
+[travis-url]: https://travis-ci.org/symbiont-io/redux-async
 [coveralls-image]: https://img.shields.io/coveralls/kolodny/redux-async.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/kolodny/redux-async
 [downloads-image]: http://img.shields.io/npm/dm/redux-async.svg?style=flat-square
